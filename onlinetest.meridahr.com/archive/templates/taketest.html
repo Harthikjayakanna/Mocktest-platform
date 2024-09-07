@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block taketesthead %} <h2>Programming Skills</h2> {% endblock %}
+
+{% block taketest %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="column">
+                <h2>Basic</h2>
+                <ul class="skill-list">
+                    <li><a href="{% url 'instruct' 'python' 'basic' %}">Python</a></li>
+                    <li><a href="{% url 'instruct' 'java' 'basic' %}">Java</a></li>
+                    <li><a href="{% url 'instruct' 'javascript' 'basic' %}">JavaScript</a></li>
+                    <li><a href="{% url 'instruct' 'html' 'basic' %}">HTML</a></li>
+                    <li><a href="{% url 'instruct' 'css' 'basic' %}">CSS</a></li>
+                    <li><a href="{% url 'instruct' 'bootstrap' 'basic' %}">Bootstrap</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="column">
+                <h2>Intermediate</h2>
+                <ul class="skill-list">
+                    <li><a href="{% url 'instruct' 'python' 'intermediate' %}">Python</a></li>
+                    <li><a href="{% url 'instruct' 'java' 'intermediate' %}">Java</a></li>
+                    <li><a href="{% url 'instruct' 'javascript' 'intermediate' %}">JavaScript</a></li>
+                    <li><a href="{% url 'instruct' 'html' 'intermediate' %}">HTML</a></li>
+                    <li><a href="{% url 'instruct' 'css' 'intermediate' %}">CSS</a></li>
+                    <li><a href="{% url 'instruct' 'bootstrap' 'intermediate' %}">Bootstrap</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="column">
+                <h2>Advanced</h2>
+                <ul class="skill-list">
+                    <li><a href="{% url 'instruct' 'python' 'advance' %}">Python</a></li>
+                    <li><a href="{% url 'instruct' 'java' 'advance' %}">Java</a></li>
+                    <li><a href="{% url 'instruct' 'javascript' 'advance' %}">JavaScript</a></li>
+                    <li><a href="{% url 'instruct' 'html' 'advance' %}">HTML</a></li>
+                    <li><a href="{% url 'instruct' 'css' 'advance' %}">CSS</a></li>
+                    <li><a href="{% url 'instruct' 'bootstrap' 'advance' %}">Bootstrap</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

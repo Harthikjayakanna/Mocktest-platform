@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Not Found</title>
+    <!-- Add your CSS styling if needed -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        h1 {
+            color: #FF0000; /* Red color */
+        }
+
+        p {
+            font-size: 18px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #0066CC; /* Blue color */
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Error: Model Not Found</h1>
+    <p>The model for the subject <strong>{{ subject }}</strong> does not exist.</p>
+    <p>Please go back to the <a href="{% url 'dash' %}">home page</a>.</p>
+</body>
+</html>

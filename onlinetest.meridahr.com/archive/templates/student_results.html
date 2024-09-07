@@ -1,0 +1,13 @@
+<html>
+<head>
+    <title>Student Results</title>
+</head>
+<body>
+    <h1>Student Results</h1>
+    <ul>
+        {% for result in student_results %}
+            <li>{{ result.student_name }} - MCQ Marks: {{ result.mcq_marks }}, Coding Marks: {{ result.coding_marks }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

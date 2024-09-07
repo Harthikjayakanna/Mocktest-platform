@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block profilehead %} <h2>MY PROFILE</h2> {% endblock %}
+
+{% block profile %}
+
+<div class="container mt-5">
+    <form action="" method="POST" enctype="multipart/form-data">
+        <!-- Personal Information -->
+        <div class="mb-3">
+            <label for="fullName" class="form-label">Profile pic:</label>
+            <input type="file" class="form-control" id="profile" placeholder="First Name Last Name" required>
+        </div>
+        <div class="mb-3">
+            <label for="fullName" class="form-label">Full Name:</label>
+            <input type="text" class="form-control" id="fullName" placeholder="First Name Last Name" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Gender:</label>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="male" name="gender">
+                <label class="form-check-label" for="male">Male</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="female" name="gender">
+                <label class="form-check-label" for="female">Female</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="other" name="gender">
+                <label class="form-check-label" for="other">Other</label>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="dob" class="form-label">Date of Birth:</label>
+            <input type="text" class="form-control" id="dob" placeholder="DD/MM/YYYY" required>
+        </div>
+
+        
+        <div class="mb-3">
+            <label for="interests" class="form-label">Interests and Hobbies:</label>
+            <textarea class="form-control" id="interests" rows="3"></textarea>
+        </div>
+
+        
+        <!-- Declaration -->
+        <div class="form-check mb-3">
+            <input type="checkbox" class="form-check-input" id="declaration" required>
+            <label class="form-check-label" for="declaration">I certify that the information provided is accurate and complete.</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+{% endblock %}

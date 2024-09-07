@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% load static %}
+    <title>Exam section Page</title>
+    <style>
+      * {
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+      }
+      .font1 {
+        font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+      }
+      .hoverup{
+         transition: transform 0.3s ease;
+        
+      }
+      .hoverup:hover{
+        transform: translateY(-10px);
+        transform: scale(1.05);
+      }
+      .logo {
+        width: 180px;
+      }
+      #cardcontent {
+        background-color: rgba(0, 0, 0, 0.5);
+        /* background-color: red; */
+        opacity: 0;
+        transition: 0.8s;
+      }
+      #cardcontent:hover {
+        opacity: 1;
+        transition: 0.8s;
+      }
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <!-- Demo Nav Bar -->
+    <div class="py-2 container flex justify-content-between align-items-center ">
+      <img class="logo" src="{% static 'images/skill learning logo-04.jpg' %}" alt="" />
+      <a href="{% url 'logoutt' %}" class="p-2 px-3 text-white bg-red-500 rounded " >logout</a>
+    </div>
+    <!-- Search -->
+    <div class="w-fit rounded mx-2 px-3 border-1 mx-auto my-5 px-2">
+      <input
+        type="text"
+        placeholder="Subjects"
+        class="p-2 outline-none"
+      />
+      <button class="">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+</svg>
+      
+      </button>
+    </div>
+    <!-- Content -->
+    <h2 class="text-center text-4xl font1 fw-semibold ">All Exams on {{subject}} Subject</h2>
+    <section class="container-md my-10 justify-content-evenly   flex flex-wrap gap-3 mx-auto">
+      <!-- Card 2  -->
+     
+
+     
+      <a href="{% url 'shuffled_mcq_question' subject  %}" 
+         class="w-[10rem] shadow hoverup sm:w-[13rem] cursor-pointer  border-3 rounded-t-xl rounded-s-xl pb-0 p-2">
+        <img class="h-[100px] sm:h-[100px] mx-auto" src="{{subject_image.url}}" alt="" />
+       
+        <p class="text-center my-1" >
+          {{subject}} MCQ         
+        </p>     
+    </a>
+
+   <a href="{% url 'shuffled_coding_question' subject  %}"  
+      class="w-[10rem] hoverup shadow sm:w-[13rem] border-3 cursor-pointer rounded-t-xl rounded-s-xl pb-0 p-2">
+        <img class="h-[100px] sm:h-[100px] mx-auto" src="{{subject_image.url}}" alt="" />  
+      <p class="text-center my-1">
+     
+        {{subject}} Coding      
+      </p>
+      
+  </a>
+
+   
+        
+        
+    </section>
+  </body>
+</html>

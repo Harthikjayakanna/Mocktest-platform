@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% block coding_test %} 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exam Form</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/python/python.min.js"></script>
+</head>
+<body>
+
+
+
+<!-- Message display -->
+<div id="message" style="display: none;"></div>
+
+
+<form id="examForm" action="" method="POST">
+  {% csrf_token %}
+  
+
+  <label for="name">Name:</label><br>
+  <input type="text" id="name" name="name" required><br>
+  <div id="error_name" style="color: red;"></div><br>
+  
+  <label for="phone">Phone:</label><br>
+  <input type="text" id="phone" name="phone" required><br>
+  <div id="error_phone" style="color: red;"></div><br>
+  
+  <label for="email">Email:</label><br>
+  <input type="email" id="email" name="email" required><br>
+  <div id="error_email" style="color: red;"></div><br>
+  
+  {% for question in coding_q %}
+  <div>
+    <p>Question {{ forloop.counter }}: {{ question.question_text }}</p>
+    <!-- Replace the textarea with a CodeMirror text area -->
+    <textarea id="answer_{{ question.id }}" name="answer_{{ question.id }}" cols="30" rows="5"></textarea>
+  </div>
+  {% endfor %}
+  
+  <!-- Hidden input field to store JSON data -->
+  <input type="hidden" id="jsonData" name="jsonData">
+
+  <button type="button" onclick="submitExam()">Submit</button>
+</form>
+
+<!-- Initialize CodeMirror instances -->
+<script>
+  // Loop through each question and initialize a CodeMirror instance
+  {% for question in coding_q %}
+  var editor_{{ question.id }} = CodeMirror.fromTextArea(document.getElementById("answer_{{ question.id }}"), {
+    mode: "python", // Set the mode to match your programming language
+    theme: "dracula", // Set the theme (you can choose a theme from the CodeMirror website)
+    lineNumbers: true, // Show line numbers
+    indentUnit: 4, // Set the indent size
+    autofocus: true // Set focus to the editor
+  });
+  {% endfor %}
+</script>
+
+<script>
+function submitExam() {
+  // Reset error messages
+  document.getElementById("error_name").innerText = "";
+  document.getElementById("error_phone").innerText = "";
+  document.getElementById("error_email").innerText = "";
+
+  var formValid = true;
+
+  // Check name field
+  var nameField = document.getElementById("name");
+  if (!nameField.value) {
+    document.getElementById("error_name").innerText = "Please fill in the name field.";
+    formValid = false;
+  }
+
+  // Check phone field
+  var phoneField = document.getElementById("phone");
+  if (!phoneField.value) {
+    document.getElementById("error_phone").innerText = "Please fill in the phone field.";
+    formValid = false;
+  }
+
+  // Check email field
+  var emailField = document.getElementById("email");
+  if (!emailField.value) {
+    document.getElementById("error_email").innerText = "Please fill in the email field.";
+    formValid = false;
+  }
+
+  // Check if form is valid
+  if (formValid) {
+    // Create an object to store questions and answers
+    var data = {};
+
+    // Loop through each question and add it to the object
+    {% for question in coding_q %}
+    var questionId = "{{ question.id }}";
+    var answer = editor_{{ question.id }}.getValue(); // Get the value from the CodeMirror editor
+    var questionText = "Question {{ forloop.counter }}: {{ question.question_text }}";
+    data[questionText] = answer;
+    {% endfor %}
+
+    // Convert the object to a JSON string
+    var jsonData = JSON.stringify(data);
+
+    // Format the JSON string to the desired format
+    var formattedJsonData = formatJsonData(jsonData);
+
+    // Store the formatted JSON data in the hidden input field
+    document.getElementById("jsonData").value = formattedJsonData;
+
+    // Display completion message
+    document.getElementById("examForm").style.display = "none";
+
+    // Mark the form as submitted to prevent it from showing again
+    document.cookie = "form_submitted=true";
+
+    // Proceed with form submission
+    document.getElementById("examForm").submit();
+  }
+}
+
+function formatJsonData(jsonData) {
+  // Parse the JSON string
+  var data = JSON.parse(jsonData);
+
+  // Format the data to match the desired format
+  var formattedData = "";
+  for (var question in data) {
+    formattedData += question + "\nANS: " + data[question] + "\n\n";
+  }
+  return formattedData.trim(); // Remove trailing newline
+}
+
+</script>
+
+
+
+</body>
+</html>
+
+{% endblock %}

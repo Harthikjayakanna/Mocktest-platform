@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+{% block subject_level %}
+<h3>{{subject}} {{testlevel}}</h3>
+{% endblock %}
+<a href="{% url 'time' %}"></a>
+{% block mcqhead %}
+<h1>Multiple Choice Questions</h1>
+{% endblock %}
+
+{% block mcq %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var base_url = "{% url 'dash' %}";
+        document.body.setAttribute('data-base-url', base_url);
+    });
+</script>
+<div id="timer">Timer: <span id="time">{{ time_limit }}</span></div>
+<br>
+
+<div class="row">
+    <form id="quiz-form">
+        <div style="display: table; width: 50%; border-collapse: separate; border-spacing: 0px;">
+
+            <div style="display: table-row; background-color: #e3c4c4; border-radius: 5px;">
+                <div style="display: table-cell; width: 50%; padding: 5px;">
+                    <label for="name" style="display: block; margin-bottom: 10px; font-weight: bold;">Enter your name as
+                        per registration:</label>
+                    <input type="text" id="name" name="name" required
+                        style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                </div>
+            </div>
+            <div style="display: table-row; background-color: #e3c4c4; border-radius: 5px;">
+                <div style="display: table-cell; width: 50%; padding: 5px;">
+                    <label for="contact_number" style="display: block; margin-bottom: 10px; font-weight: bold;">Enter
+                        your contact number as per registration:</label>
+                    <input type="tel" id="contact_number" name="contact_number" required
+                        style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                </div>
+            </div>
+
+            <div style="display: table-row; background-color: #e3c4c4; border-radius: 5px;">
+                <div style="display: table-cell; width: 50%; padding: 5px;">
+                    <label for="Email" style="display: block; margin-bottom: 10px; font-weight: bold;">Enter your email
+                        as per registration:</label>
+                    <input type="email" id="Email" name="email" placeholder="example@gmail.com" required
+                        style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                </div>
+            </div>
+
+        </div>
+
+        {% for q in data %}
+        <div class="col-12">
+            <p class="fw-bold">{{ q.question }}</p>
+            <div>
+                <label for="one" class="box first">
+                    <div class="course">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="{{ q.id }}" id="flexRadioDefault1"
+                                value="{{ q.optionA }}">
+                            <label class="form-check-label" for="flexRadioDefault1">{{ q.optionA }}</label>
+                        </div>
+                    </div>
+                </label>
+                <label for="two" class="box second">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="{{ q.id }}" id="flexRadioDefault1"
+                            value="{{ q.optionB }}">
+                        <label class="form-check-label" for="flexRadioDefault1">{{ q.optionB }}</label>
+                    </div>
+                </label>
+                <label for="three" class="box third">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="{{ q.id }}" id="flexRadioDefault1"
+                            value="{{ q.optionC }}">
+                        <label class="form-check-label" for="flexRadioDefault1">{{ q.optionC }}</label>
+                    </div>
+                </label>
+                <label for="four" class="box forth">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="{{ q.id }}" id="flexRadioDefault1"
+                            value="{{ q.optionD }}">
+                        <label class="form-check-label" for="flexRadioDefault1">{{ q.optionD }}</label>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        {% endfor %}
+        <button type="submit" class="Submit-btn">Submitttt</button>
+        <a href="/code" class="btn btn-primary">Proceed to Next</a>
+    </form>
+
+
+
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('#quiz-form');
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the form from submitting normally
+
+            // Create an object to store the selected answers
+            const answers = {};
+
+            // Loop through all radio buttons in the form
+            form.querySelectorAll('input[type="radio"]:checked').forEach(function (radio) {
+                const questionId = radio.name;
+                const selectedAnswer = radio.value;
+
+                // Store the selected answer in the object
+                answers[questionId] = selectedAnswer;
+            });
+
+            // Log the collected answers (you can send it to the server using AJAX here)
+            //console.log(answers);
+
+            const answersJson = JSON.stringify(answers);
+
+            // Encode the JSON string as a URL parameter
+            //const answersParam = encodeURIComponent(answersJson);
+            //console.log(answersParam)
+            // Construct the URL with the parameter
+            //const url = `submitted/ans=${answersJson}`;
+
+            const name = document.getElementById('name')
+            const contact_number = document.getElementById('contact_number')
+            const email = document.getElementById('Email')
+            console.log(name.value, contact_number.value)
+
+            const url = `/submitted/{{subject}}/{{testlevel}}/${answersJson}/${name.value}/${contact_number.value}/${email.value}`;
+            console.log(url)
+            // Now you can submit the form programmatically or send the answers to the server using AJAX
+            // form.submit(); // Uncomment this line if you want to submit the form after collecting answers
+            window.location.href = url;
+        });
+    });
+</script>
+<script>
+    var timeLimit = {{ time_limit }};
+
+    function updateTimer(timeRemaining) {
+        var minutes = Math.floor(timeRemaining / 60);
+        var seconds = timeRemaining % 60;
+        document.getElementById('time').innerText =
+            (minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+    }
+
+    function startTimer() {
+        var timeRemaining = timeLimit;
+        updateTimer(timeRemaining);
+
+        var timerInterval = setInterval(function () {
+            timeRemaining--;
+
+            if (timeRemaining >= 0) {
+                updateTimer(timeRemaining);
+            } else {
+                clearInterval(timerInterval);
+                alert('Time is up! Submit your answers.');
+            }
+        }, 1000);
+    }
+
+    window.onload = startTimer;
+</script>
+
+<script>
+    window.addEventListener('popstate', function (event) {
+        // Retrieve the base URL from the data attribute
+        var base_url = document.body.getAttribute('data-base-url');
+
+        // Redirect to the desired URL
+        window.location.href = base_url;
+    });
+    function proceedToNext() {
+
+        window.location.href = "/code";
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Test Submission Confirmation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      text-align: center;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    #countdown {
+      font-size: 48px;
+      color: #007bff;
+    }
+  </style>
+  <script>
+    var countdown = 5;
+
+    function updateCountdown() {
+      document.getElementById("countdown").innerText = countdown;
+      countdown--;
+
+      if (countdown < 0) {
+        window.location.href = "{% url 'dash' %}"; // Redirect to home page
+      } else {
+        setTimeout(updateCountdown, 1000); // Update countdown every 1000 milliseconds = 1 second
+      }
+    }
+
+    // Initial call to start the countdown
+    setTimeout(updateCountdown, 1000);
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>Your coding test is submitted</h1>
+    <p>Redirecting to the home page in <span id="countdown">5</span> seconds...</p>
+  </div>
+</body>
+</html>

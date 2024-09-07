@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block codinghead %} 
+<h3>Coding Questions: </h3>
+{% endblock %}
+{% block coding %}
+    <h3>Welcome to the Coding Page</h3>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Basic</th>
+                <th>Intermediate</th>
+                <th>Advanced</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    {% for i,j in basic_dic.items %}
+                            <a href="{% url 'codes' i j %}">{{i}}</a><br>  
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for i,j in intermediate_dic.items %}
+                            <a href="{% url 'codes' i j %}">{{i}}</a><br>  
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for i,j in advance_dic.items %}
+                            <a href="{% url 'codes' i j %}">{{i}}</a><br>  
+                    {% endfor %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+{% endblock %}

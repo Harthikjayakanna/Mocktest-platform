@@ -1,0 +1,299 @@
+25 
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Question paper</title>
+        
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+          crossorigin="anonymous"
+        ></script>
+    <!-- ############################ -->
+        <script src="https://kit.fontawesome.com/ae360af17e.js" crossorigin="anonymous"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.css">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/python/python.min.js"></script>
+        {% comment %} <link rel="stylesheet" href="style.css"> {% endcomment %}
+        <title>Sidebar With Bootstrap</title>
+        
+    <!-- Include CodeMirror stylesheet -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.css">
+    <!-- Include CodeMirror theme (you can choose a theme from the CodeMirror website) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/theme/dracula.min.css">
+    <!-- ##################################### -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/stylee.css' %}">
+        <style>
+           #restictions::-webkit-scrollbar {
+        width: 12px;
+      }
+      
+      #restictions::-webkit-scrollbar-thumb {
+        background-color: #888;
+        border-radius: 6px;
+      }
+      
+      /* Add a pseudo-element for the scrollbar corner */
+      #restictions::-webkit-scrollbar-corner {
+        background-color: #f1f1f1;
+      }
+        </style>
+      </head>
+  
+  <body>
+    <!-- Logo and image -->
+    
+    <div class="px-5 flex py-3">
+      <img class="w-[180px]" src="{% static 'images/skill learning logo-04.jpg' %}" alt="" />
+      <h1 class="mx-auto w-fit text-5xl my-2 fw-semibold ">{{subject}} Mock examination</h1>
+      <a href="{% url 'logoutt' %}">logout</a>
+    </div>
+
+    <div id="restictions" class="scrolling-list-container container-lg h-[75vh] overflow-y-scroll mx-auto">
+        
+      <h2 class="fw-semibold text-3xl">Restriction</h2>
+      <p class="lg:w-4/6">
+        We excel at providing businesses with specific approaches to satisfy
+        their various requirements. Moreover, we offer a broad variety of
+        workforce management services, including contract staffing, permanent
+        staffing, payroll processing, and HR Recruitment Staffing Solutions. Our
+        professional staff is dedicated to assisting businesses in finding the
+        right employees, optimizing payroll operations, and decreasing the
+        return on human capital expenditures. Additionally, we realize the
+        necessity of personalizing our services to fit each customer's
+        Businesses requirements and promote success with our HR Recruitment
+        Staffing Solutions
+      </p>
+<!-- Question have to loop  -->
+
+<div class="row">
+  <form id="quiz-form">
+    <label for="register">Mention Your Register ID:</label>
+
+    <input type="text" id="register" name="name" required minlength="4" maxlength="8" size="10"  value="{{regi}}"/>
+    
+    
+      {% for q in data %}
+      {% if forloop.counter < count %}
+      
+      <div class="col-12">
+          <p class="fw-bold">{{ q.question }}</p>
+          <div>
+              <label for="one" class="box first">
+                  <div class="course">
+                      <div class="form-check">
+                          <input class="form-check-input" type="radio" name="{{ q.id }}" id="flexRadioDefault1"
+                              value="{{ q.optionA }}">
+                          <label class="form-check-label" for="flexRadioDefault1">{{ q.optionA }}</label>
+                      </div>
+                  </div>
+              </label>
+              <label for="two" class="box second">
+                  <div class="form-check">
+                      <input class="form-check-input" type="radio" name="{{ q.id }}" id="flexRadioDefault1"
+                          value="{{ q.optionB }}">
+                      <label class="form-check-label" for="flexRadioDefault1">{{ q.optionB }}</label>
+                  </div>
+              </label>
+              <label for="three" class="box third">
+                  <div class="form-check">
+                      <input class="form-check-input" type="radio" name="{{ q.id }}" id="flexRadioDefault1"
+                          value="{{ q.optionC }}">
+                      <label class="form-check-label" for="flexRadioDefault1">{{ q.optionC }}</label>
+                  </div>
+              </label>
+              <label for="four" class="box forth">
+                  <div class="form-check">
+                      <input class="form-check-input" type="radio" name="{{ q.id }}" id="flexRadioDefault1"
+                          value="{{ q.optionD }}">
+                      <label class="form-check-label" for="flexRadioDefault1">{{ q.optionD }}</label>
+                  </div>
+              </label>
+          </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+
+      <button type="submit" class="Submit-btn">Submit</button>
+      <a href="/code" class="btn btn-primary">Proceed to Next</a>
+  </form>
+
+
+
+</div>
+<!-- #################################### -->
+  
+      
+<!-- Question loop end here -->
+    </div>
+    <!-- Footer of the Question page -->
+    <article class="flex justify-content-between align-items-center py-3 px-5 container-lg">
+      <!-- Timer -->
+      <div class="text-2xl">Time : 45:00</div>
+      <p id="countdown">Time remaining:</p>
+      <!-- Submit Button -->
+      <button class="p-2 px-3 bg-red-400 text-slate-100 rounded">Submit</button>
+    </article>
+
+<!-- ################################################ -->
+
+
+
+    
+    <!-- <form id="yourForm" method="post">
+        {% csrf_token %}
+        
+        <input type="text" name="name" placeholder="Name">
+        <input type="text" name="subject" placeholder="Subject">
+        <button type="submit">Submit</button>
+        <p id="countdown">Time remaining:</p>
+    </form> -->
+    
+    <!-- <script>
+        // Function to reset form data when the page is shown
+        window.addEventListener('pageshow', function(event) {
+            // Clear form data
+            document.getElementById("quiz-form").reset();
+            // Clear any success messages or timers
+            document.getElementById("newTime").textContent = "";
+        });
+    </script>  -->
+
+    <!-- <script>
+        // Function to handle form submission
+        document.getElementById("quiz-form").addEventListener('submit', function(event) {
+            // Replace the current URL with the success page URL
+            window.history.replaceState({}, '', '/success/');
+        });
+    </script> -->
+    
+    <!-- <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var newTime = new Date().getTime() +(10 * 1000);
+            console.log(newTime)
+            var submissionTime = new Date("February 19, 2024 01:03:00").getTime(); // Replace with your desired submission time
+            
+            function updateTimerDisplay() {
+                var currentTime = new Date().getTime();
+                var timeDifference = newTime - currentTime;
+
+                if (timeDifference <= 0) {
+                    document.getElementById("countdown").textContent = "Time's up!";
+                    // document.getElementById("quiz-form").submit(); // Submit the form when time's up
+                    form = document.querySelector('#quiz-form');
+                    form.submit();
+                    console.log("form data is submitted")
+                } else {
+                    var hoursRemaining = Math.floor(timeDifference / (1000 * 60 * 60));
+                    var minutesRemaining = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+                    var secondsRemaining = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+                    var timerDisplay = hoursRemaining + ":" + minutesRemaining + ":" + secondsRemaining;
+                    document.getElementById("countdown").textContent = "Time remaining: " + timerDisplay;
+
+                    setTimeout(updateTimerDisplay, 1000); // Update the timer display every second
+                }
+            }
+
+            // Start updating the timer display
+            updateTimerDisplay();
+        });
+    </script> -->
+
+    
+
+<!-- ##################################### -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+          var form = document.querySelector('#quiz-form');
+          console.log("shfhsgfjshfgjsfhgs")
+          form.addEventListener('submit', function (event) {
+              event.preventDefault(); // Prevent the form from submitting normally
+  
+              // Create an object to store the selected answers
+              const answers = {};
+  
+              // Loop through all radio buttons in the form
+              form.querySelectorAll('input[type="radio"]:checked').forEach(function (radio) {
+                  const questionId = radio.name;
+                  const selectedAnswer = radio.value;
+  
+                  // Store the selected answer in the object
+                  answers[questionId] = selectedAnswer;
+              });
+  
+              // Log the collected answers (you can send it to the server using AJAX here)
+              //console.log(answers);
+  
+              const answersJson = JSON.stringify(answers);
+              console.log(answersJson)
+              // Encode the JSON string as a URL parameter
+              //const answersParam = encodeURIComponent(answersJson);
+              //console.log(answersParam)
+              // Construct the URL with the parameter
+              //const url = `submitted/ans=${answersJson}`;
+  
+              const regi = document.getElementById('register')
+              
+              console.log(regi.value)
+              const url=`/mcq_verify/{{subject}}/{{testlevel}}/${answersJson}/${regi.value}`;
+              // const url = `/submitted/{{subject}}/{{testlevel}}/${answersJson}/${regi.value}`;
+              console.log(url)
+              // Now you can submit the form programmatically or send the answers to the server using AJAX
+              // form.submit(); // Uncomment this line if you want to submit the form after collecting answers
+              window.location.href = url;
+          });
+      });
+
+      // ########################################
+
+      // Check for timer expiration
+var newTime = new Date().getTime() + (30000 * 1000);
+console.log(newTime)
+var submissionTime = new Date("February 19, 2024 01:03:00").getTime(); // Replace with your desired submission time
+
+function updateTimerDisplay() {
+    var currentTime = new Date().getTime();
+    var timeDifference = newTime - currentTime;
+
+    if (timeDifference <= 0) {
+      
+        document.getElementById("countdown").textContent = "Time's up!";
+        console.log("form data is submittednnn");
+        // Submit the form programmatically when time's up
+        var submitButton = document.querySelector('.Submit-btn');
+        submitButton.click();
+        
+    } else {
+        var hoursRemaining = Math.floor(timeDifference / (1000 * 60 * 60));
+        var minutesRemaining = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+        var secondsRemaining = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+        var timerDisplay = hoursRemaining + ":" + minutesRemaining + ":" + secondsRemaining;
+        document.getElementById("countdown").textContent = "Time remaining: " + timerDisplay;
+
+        setTimeout(updateTimerDisplay, 1000); // Update the timer display every second
+    }
+}
+
+// Start updating the timer display
+updateTimerDisplay();
+  </script>
+
+
+
+  </body>
+</html>

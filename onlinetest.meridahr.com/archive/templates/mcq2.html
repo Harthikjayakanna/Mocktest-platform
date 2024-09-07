@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block mcq %}
+
+{% for q in data  %}
+
+
+{{q.question}}
+{{q.optionA}}
+{{q.optionB}}
+{{q.optionC}}
+{{q.optionD}}
+
+
+{% endfor %}
+
+
+
+{% endblock %}

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% load static %}
+    <title>Question Answers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/python/python.min.js"></script>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/python/python.min.js"></script>
+    <style>
+      #restictions::-webkit-scrollbar {
+        width: 12px;
+      }
+
+      #restictions::-webkit-scrollbar-thumb {
+        background-color: #888;
+        border-radius: 6px;
+      }
+
+      /* Add a pseudo-element for the scrollbar corner */
+      #restictions::-webkit-scrollbar-corner {
+        background-color: #f1f1f1;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Logo and image -->
+    <div class="px-5 flex py-3">
+      <img class="w-[180px]" src="{% static 'images/skill learning logo-04.jpg' %}" alt="" />
+      <a href="{% url 'logoutt' %}">logout</a>
+      <h1 class="mx-auto w-fit text-5xl my-2 fw-semibold">
+        {{sub}} Mock examination
+      </h1>
+    </div>
+    <div
+      id="restictions"
+      class="scrolling-list-container container-lg h-[75vh] overflow-y-scroll mx-auto"
+    >
+      <h2 class="fw-semibold text-3xl">Restriction</h2>
+      <p class="lg:w-4/6">
+        We excel at providing businesses with specific approaches to satisfy
+        their various requirements. Moreover, we offer a broad variety of
+        workforce management services, including contract staffing, permanent
+        staffing, payroll processing, and HR Recruitment Staffing Solutions. Our
+        professional staff is dedicated to assisting businesses in finding the
+        right employees, optimizing payroll operations, and decreasing the
+        return on human capital expenditures. Additionally, we realize the
+        necessity of personalizing our services to fit each customer's
+        Businesses requirements and promote success with our HR Recruitment
+        Staffing Solutions
+      </p>
+      <!-- Question have to loop  -->
+      <form id="examForm" action="{% url 'shuffled_coding_answers' sub  %}" method="POST">
+        {% csrf_token %}
+
+        <label for="regi">Register Id:</label><br>
+       <input type="text" id="regi" name="regi" required value="{{register_id}}"><br>
+       <div id="error_name" style="color: red;"></div><br>
+      {% for question in coding_q %}
+      <article class="question p-3 border-3 my-3">
+        <div class="flex gap-3 align-items-center">
+          <p
+            class="rounded-full w-[40px] h-[40px] bg-green-400 text-lg flex align-items-center justify-content-center">
+            {{ forloop.counter }}
+          </p>
+          Question
+        </div>
+        <p class="my-2">
+           {{ question.question_text }}
+        </p>
+        <!-- Answers -->
+        <!-- <textarea  class="" name="answer" id="answer" cols="30" rows="10"></textarea> -->
+        <textarea class=""  id="answer_{{ question.id }}" name="answer_{{ question.id }}" cols="30" rows="10"></textarea>
+        
+      </article>
+
+      {% endfor %}
+      <input type="hidden" id="jsonData" name="jsonData">
+
+  <button type="button" class="Submit-btn" onclick="submitExam()">Submit</button>
+</form>
+      </div>
+    <!-- Footer of the Question page -->
+
+
+    <article
+      class="flex justify-content-between align-items-center py-3 px-5 container-lg"
+    >
+      <!-- Timer -->
+      <div class="text-2xl">Time : 45:00</div>
+      <p id="countdown">Time remaining:</p>
+      <!-- Submit Button -->
+      <button class="p-2 px-3 bg-red-400 text-slate-100 rounded">Submit</button>
+    </article>
+
+    <script>
+      function submitExam() {
+        // Reset error messages
+        document.getElementById("error_name").innerText = "";
+    
+        // Check regi field
+        var nameField = document.getElementById("regi");
+        if (!nameField.value) {
+          document.getElementById("error_name").innerText = "Please fill in the Register Id.";
+          return; // Return early if there is an error
+        }
+    
+        // Create an object to store questions and answers
+        var data = {};
+    
+        // Loop through each question and add it to the object
+        {% for question in coding_q %}
+        var questionId = "{{ question.id }}";
+        var answer = document.getElementById("answer_{{ question.id }}").value; // Get the value from the textarea
+        var questionText = "Question {{ forloop.counter }}: {{ question.question_text }}";
+        data[questionText] = answer;
+        {% endfor %}
+    
+        // Convert the object to a JSON string
+        var jsonData = JSON.stringify(data);
+    
+        // Store the formatted JSON data in the hidden input field
+        document.getElementById("jsonData").value = jsonData;
+    
+        // Proceed with form submission
+        document.getElementById("examForm").submit();
+      }
+    </script>
+
+<script>
+
+var newTime = new Date().getTime() + (7 * 1000);
+console.log(newTime)
+var submissionTime = new Date("February 19, 2024 01:03:00").getTime(); // Replace with your desired submission time
+
+function updateTimerDisplay() {
+    var currentTime = new Date().getTime();
+    var timeDifference = newTime - currentTime;
+
+    if (timeDifference <= 0) {
+      
+        document.getElementById("countdown").textContent = "Time's up!";
+        console.log("form data is submittednnn");
+        // Submit the form programmatically when time's up
+        var submitButton = document.querySelector('.Submit-btn');
+        submitButton.click();
+        
+    } else {
+        var hoursRemaining = Math.floor(timeDifference / (1000 * 60 * 60));
+        var minutesRemaining = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+        var secondsRemaining = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+        var timerDisplay = hoursRemaining + ":" + minutesRemaining + ":" + secondsRemaining;
+        document.getElementById("countdown").textContent = "Time remaining: " + timerDisplay;
+
+        setTimeout(updateTimerDisplay, 1000); // Update the timer display every second
+    }
+}
+
+// Start updating the timer display
+updateTimerDisplay();
+</script>
+
+
+
+    
+
+  </body>
+</html>

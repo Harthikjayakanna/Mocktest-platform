@@ -1,0 +1,52 @@
+
+
+
+
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    Launch static backdrop modal
+  </button> -->
+  
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Disclaimer</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <ol>
+                <li>I declare that, I am not in possession of or not wearing or not carrying any gadgets like mobile phones, Bluetooth devices, smartwatches, etc</li>
+                <li>I declare that I am attempting the test by myself and not seeking any help from the internet or other person.</li>
+                <li>I declare that I won't move out of the test window during the entire test duration. I agree that if I do so , my test shall be terminated</li>
+                <li>I agree that in case of not adhering to the instructions, I shall be liable to be debarred from this test and may get banned from attempting future tests or may get blacklisted.</li>
+            </ol>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" onclick="startTest()" class="btn btn-primary">Understood</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<script>
+    // Function to show the disclaimer pop-up screen
+    function showDisclaimer() {
+        var modal = document.getElementById('disclaimerModal');
+        modal.style.display = 'block';
+    }
+
+    // Function to close the disclaimer pop-up screen   
+    function closeDisclaimer() {
+        var modal = document.getElementById('disclaimerModal');
+        modal.style.display = 'none';
+    }
+    function startTest() {
+      window.location.href="{% if subject and testlevel %} {% url 'mcq2' subject testlevel %}{% endif %}";
+    }
+
+    // Showing the disclaimer pop-up on page load.
+    window.onload = showDisclaimer;
+</script>
+

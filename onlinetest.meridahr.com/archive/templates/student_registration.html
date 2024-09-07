@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: left;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 6px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <form action="{% url 'student_registration' %}" method="POST">
+        {% csrf_token %}
+        <h2>Student Registration</h2>
+
+        <label for="{{ form.full_name.id_for_label }}">Full Name:</label>
+        {{ form.full_name }}
+        <span class="error">{{ form.full_name.errors }}</span>
+
+        <label for="{{ form.date_of_birth.id_for_label }}">Date of Birth:</label>
+        {{ form.date_of_birth }}
+        <span class="error">{{ form.date_of_birth.errors }}</span>
+
+        <label for="{{ form.gender.id_for_label }}">Gender:</label>
+        <select name="{{ form.gender.name }}" id="{{ form.gender.id_for_label }}">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+        </select>
+        <span class="error">{{ form.gender.errors }}</span>
+
+        <label for="{{ form.contact_number.id_for_label }}">Contact Number:</label>
+        {{ form.contact_number }}
+        <span class="error">{{ form.contact_number.errors }}</span>
+
+        <label for="{{ form.test_choosen.id_for_label }}">Test Chosen:</label>
+        {{ form.test_choosen }}
+        <span class="error">{{ form.test_choosen.errors }}</span>
+        <br>
+        <center><button type="submit">Register</button></center>
+    </form>
+
+</body>
+
+</html>

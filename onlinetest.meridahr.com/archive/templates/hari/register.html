@@ -1,0 +1,422 @@
+{% load static %}
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% load static %}
+    <title>SignUp page</title>
+    <style>
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      * {
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+      }
+      /* body{
+            background: rgb(218,52,246);
+background: -moz-linear-gradient(167deg, rgba(218,52,246,1) 0%, rgba(32,33,126,1) 100%);
+background: -webkit-linear-gradient(167deg, rgba(218,52,246,1) 0%, rgba(32,33,126,1) 100%);
+background: linear-gradient(167deg, rgba(218,52,246,1) 0%, rgba(32,33,126,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#da34f6",endColorstr="#20217e",GradientType=1); } */
+      .font1 {
+        font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+      }
+      .logo {
+        width: 300px;
+      }
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <!-- Logo bar -->
+    <div class="d-flex">
+      <img
+        class="logo mx-auto"
+        src="{% static 'images/skill learning logo-04.jpg' %}"
+        alt=""
+      />
+    </div>
+    <!-- Form to LogIn -->
+
+    <div class="h-[80vh] flex">
+      <div class="mx-auto my-auto col-md-5 py-5 shadow-lg border-2 rounded-2xl">
+        <form action="{% url 'signup' %}"   method="POST" class="d-flex w-75 p-3 mx-auto flex-column gap-3">
+          {% csrf_token %}
+          <p class="text-center font1 text-2xl fw-semibold">
+            User Registeration
+          </p>
+          <input
+            type="text"
+            class="p-2 text-xl focus:outline-orange-600 px-3 border"
+            placeholder="Name :" name="name"
+          />
+          <input
+            type="email"
+            class="p-2 text-xl focus:outline-orange-600 px-3 border"
+            placeholder="Email : " name="email"
+          />
+          <input
+            type="number"
+            class="p-2 text-xl focus:outline-orange-600 px-3 border"
+            placeholder="Phone :" name="phone"
+          />
+          <input
+            type="password"
+            class="p-2 text-xl focus:outline-orange-600 px-3 border"
+            placeholder="Password :" name="password"
+          />
+          <!-- <input
+            type="text"
+            class="p-2 text-xl focus:outline-orange-600 px-3 border"
+            placeholder="OTP :"
+          /> -->
+          <a href="{% url 'login' %}" class="text-center w-fit ms-auto  text-blue-500 hover:underline ">LogIn to the existing account  </a>
+          <button class="p-2 px-3 bg-blue-600 text-slate-50 rounded-xl">
+            Sign Up
+          </button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html> {% endcomment %}
+
+
+ {% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+
+    
+		 input:hover {
+			background-color:darkgrey;
+			color:black;
+			
+		  } 
+	</style>
+
+</head>
+<body>
+	<div class="container" style="box-sizing: border-box; width:fit-content;height:fit-content;background-color:cadetblue;
+     margin:auto;margin-top:5em;padding:1em 2em 2em ;border-radius: 15px 50px 30px 5px;">
+	<h3 id="form-title">REGISTER ACCOUNT</h3>
+  
+	<form method="post" action="" onsubmit="return validateForm()">
+	{% csrf_token %}
+	<table >
+		<tr>
+			<td>
+                <h5>Name</h5>
+			</td>
+			<td>
+				<input type="text" name="name" required>
+			</td>
+		</tr>
+		<tr>
+			<td>
+                <h5>Emali</h5>
+			</td>
+			<td>
+				<input type="email" name="email" required>
+			</td>
+            {% if message %}
+            <p style="color:red" class="message">{{message}}</p>
+            {% endif %}
+		</tr>
+		<tr>
+			<td>
+      <h5>Phone Num</h5>
+      <p id="message"></p>
+			</td>
+			<td>
+				<input type="number" name="phone" id="phone" required>
+			</td>
+		</tr>
+		<tr>
+			<td>
+                <h5>Password</h5>
+			</td>
+			<td>
+				<input type="text" name="password" id="p" required>
+			</td>
+		</tr>
+        <tr>
+			<td>
+        <h5>Conform Password</h5>
+			</td>
+			<td>
+				<input type="text" name="confirmpassword" id="cp" required >
+			</td>
+		</tr>
+	</table>
+
+	<div style="padding-left:6em; padding-top:2em">
+		<input type="submit" value="Register Account">
+	</div>
+	
+	<div class="submit"  style="padding-left:4em;padding-top:2em">
+		Already have an accoun<a href="/" >Login</a>
+	</div>
+	</form>
+</div>
+
+<script>
+  document.getElementById("phone").addEventListener("input", function() {
+      const phoneInput = document.getElementById("phone");
+      const phoneNumber = phoneInput.value;
+      
+      // If phone number length is 10, make an AJAX call to Django view function
+      if (phoneNumber.length === 10) {
+          // Get CSRF token from the cookie
+          const csrftoken = getCookie('csrftoken');
+          
+          // Make an AJAX request
+          const xhr = new XMLHttpRequest();
+          const url = `/number/${phoneNumber}`; // Updated URL with phone number
+          xhr.open('POST', url, true);
+          xhr.setRequestHeader('Content-Type', 'application/json');
+          xhr.setRequestHeader('X-CSRFToken', csrftoken); // Include CSRF token in headers
+          xhr.onreadystatechange = function() {
+              if (xhr.readyState === XMLHttpRequest.DONE) {
+                  if (xhr.status === 200) {
+                      const responseText = xhr.responseText;
+                      document.getElementById('message').textContent=responseText
+                      console.log('Success:', responseText);
+                      displayMessage(responseText); // Call function to display message
+                  } else {
+                      console.error('Error:', xhr.status);
+                      // Optionally, you can handle errors here
+                  }
+              }
+          };
+          xhr.send();
+      }
+  });
+  
+  // Function to display message above phone number field
+  function displayMessage(message) {
+      const messageElement = document.getElementById("message");
+      messageElement.innerHTML = "<p>" + message + "</p>"; // Add <p> tags around the message
+  }
+  
+  // Function to get CSRF token from cookie
+  function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+              const cookie = cookies[i].trim();
+              // Does this cookie string begin with the name we want?
+              if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+  }
+  </script>
+  
+  
+</body>
+</html> {% endcomment %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      /* Custom CSS */
+      #companyLogo {
+          max-width: 40px;
+          border-radius: 5%; /* Set border radius to 5% */
+      }
+  </style>
+</head>
+<body>
+    <div class="container mt-6 ">
+        <div class="card p-2" style="max-width: 400px; margin: auto;">
+            <h4 class="text-center">REGISTER ACCOUNT</h4>
+            <form method="post" action="" onsubmit="return validateForm()">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                  <label for="phone">Phone Number</label>
+                  <p id='message' style="display:none"><div class="text-center">
+                    <static>
+                    <img src="" id="companyLogo" class="img-fluid" alt="" style="max-width: 40px;">
+                    </static>
+                    <script>
+                      document.addEventListener("DOMContentLoaded", function() {
+                          const logoContainer = document.getElementById("logoContainer");
+                          const logo = document.getElementById("companyLogo");
+                  
+                          logo.onerror = function() {
+                              logoContainer.innerHTML = ''; // Remove the logo container completely
+                          };
+                  
+                          document.getElementById("phone").addEventListener("input", function() {
+                              const phoneInput = document.getElementById("phone");
+                              const phoneNumber = phoneInput.value;
+                  
+                              // If phone number length is less than 10, set the src attribute of the image to an empty string
+                              if (phoneNumber.length < 10) {
+                                  logo.src = ''; // Empty the src attribute of the image
+                              }
+                          });
+                      });
+                  </script>
+                  
+                </div></P>
+                  <input type="tel" class="form-control" id="phone" name="phone" required pattern="[0-9]{10}">
+                  <small id="phoneMessage" class="form-text text-muted">Please enter a 10-digit phone number.</small>
+              </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmpassword">Confirm Password</label>
+                    <input type="password" class="form-control" id="confirmpassword" name="confirmpassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Register Account</button>
+                <div class="mt-3">
+                    Already have an account? <a href="/">Login</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+      
+      document.getElementById("phone").addEventListener("input", function() {
+        
+          const phoneInput = document.getElementById("phone");
+          const phoneNumber = phoneInput.value;
+          
+          // If phone number length is 10, make an AJAX call to Django view function
+          if (phoneNumber.length === 10) {
+              // Get CSRF token from the cookie
+              const csrftoken = getCookie('csrftoken');
+              
+              // Make an AJAX request
+              const xhr = new XMLHttpRequest();
+              const url = `/number/${phoneNumber}`; // Updated URL with phone number
+              xhr.open('POST', url, true);
+              xhr.setRequestHeader('Content-Type', 'application/json');
+              xhr.setRequestHeader('X-CSRFToken', csrftoken); // Include CSRF token in headers
+              xhr.onreadystatechange = function() {
+                  if (xhr.readyState === XMLHttpRequest.DONE) {
+                      if (xhr.status === 200) {
+                          const responseText = xhr.responseText;
+                          if (responseText !== "N/A") {
+                            // If responseText is not "N/A", allow form submission
+                            //form.submit();
+                        } else {
+                            // If responseText is "N/A", display a message or take appropriate action
+                            phoneInput.value = '';
+                            alert('Phone number not found Please Enter The correct Number');
+                        }
+                          document.getElementById('message').textContent=responseText
+                          console.log('Success:', responseText);
+                          displayCompanyLogo(responseText);
+                          //displayMessage(responseText); // Call function to display message
+                      } else {
+                          console.error('Error:', xhr.status);
+                          // Optionally, you can handle errors here
+                      }
+                  }
+              };
+              xhr.send();
+          }
+      });
+      
+
+      function displayCompanyLogo(companyName) {
+        const logo = document.getElementById("companyLogo");
+        console.log(companyName)
+        
+        if (companyName == "Bharti Airtel Ltd" || companyName == "Bharti Airtel" || companyName == "Airtel") {
+            console.log("hellooooooo")
+            logo.src = "{% static 'images/airtel.png' %}"; // Replace with actual path to company1 logo
+        } else if (companyName === "Bharat Sanchar Nigam (BSNL)") {
+            logo.src = "https://www.bing.com/images/search?view=detailV2&ccid=nfeNl3%2by&id=DAF355D0849712772D6AB4009C8DE088F0442CD0&thid=OIP.nfeNl3-yCcUbn_C1PodW7gHaE8&mediaurl=https%3a%2f%2fdownload.logo.wine%2flogo%2fBharat_Sanchar_Nigam_Limited%2fBharat_Sanchar_Nigam_Limited-Logo.wine.png&exph=2000&expw=3000&q=give+logo+of+Bharat+Sanchar+Nigam+(BSNL)&simid=608029527140605829&FORM=IRPRST&ck=2B7AD68607B4468D9375396E201FD165&selectedIndex=0&itb=1"; // Replace with actual path to company2 logo
+        } else if (companyName === "Reliance (JIO)" || companyName ==="Reliance Jio Infocomm Limited") {
+            logo.src = "{% static 'images/jio.png' %}"; // Replace with actual path to company3 logo
+        }
+       
+        
+      }
+      
+
+      // Function to get CSRF token from cookie
+      function getCookie(name) {
+          let cookieValue = null;
+          if (document.cookie && document.cookie !== '') {
+              const cookies = document.cookie.split(';');
+              for (let i = 0; i < cookies.length; i++) {
+                  const cookie = cookies[i].trim();
+                  // Does this cookie string begin with the name we want?
+                  if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                      break;
+                  }
+              }
+          }
+          return cookieValue;
+      }
+      </script>
+
+      <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // JavaScript code here
+            function validateForm() {
+                var phoneInput = document.getElementById("phone");
+                var phoneMessage = document.getElementById("phoneMessage");
+
+                if (phoneInput.value.length !== 10) {
+                    phoneMessage.textContent = "Phone number must be exactly 10 digits long.";
+                    return false;
+                } else {
+                    phoneMessage.textContent = "";
+                    return true;
+                }
+            }
+
+            // Limit input length to 10 characters
+            document.getElementById("phone").addEventListener("input", function() {
+                if (this.value.length > 10) {
+                    this.value = this.value.slice(0, 10);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

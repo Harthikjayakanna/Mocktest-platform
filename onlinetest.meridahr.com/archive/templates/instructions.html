@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block instructionshead %} <h2>Mock Test Instructions: </h2> 
+<style>
+    body {
+        margin: 0; 
+        padding: 0;
+        display: flex;
+        justify-content: flex-end; 
+        align-items: flex-start; 
+        min-height: 100vh; 
+    }
+
+    
+    .start-button, .back-button {
+        text-align: right; 
+    }
+</style>
+
+{% endblock %}
+
+{% block instructions %}
+<div>
+    <p>Welcome to the mock test! Before you begin, please read the following instructions carefolly: </p>
+    <ol>
+        <li>Number of Questions: 20</li>
+        <li>Type of Questions: MCQs</li>
+        <li>Duration: 40 mins</li>
+        <li>Marking Scheme: All questions have equal weightage.Every correct response gets +2 marks</li>
+        <li>Negative Marking: For each incorrect answer, 1 mark will be deducted.
+            No negative marking in case of an unattempted question.</li>
+        <li>Attempts: You can take this assessment again only after 4 hours from the completion of the previous
+            attempt.</li>
+        <li>Cutoff Marks: You need to score a minimum of 25 marks.</li>
+        <li>Skip a Question: Skip option will be available after a few seconds for each question
+            <ul>
+                <li>If a question is skipped, you will see it again.</li>
+                <li>if a question is attempted, you won't see it again</li>
+            </ul>
+        </li>        
+    </ol>
+</div>
+<br>
+<form action="{% url 'test' %}" method="POST">
+    {% csrf_token %}
+    <label for="name">Enter your name as per registration:</label>
+    <input type="text" id="name" name="name" required>
+    <br><br>
+    <label for="contact_number">Enter your contact number as per registration:</label>
+    <input type="tel" id="contact_number" name="contact_number" required>
+
+</form>
+{% include 'disclaimer.html' %}
+<div>
+    <p class="start-button">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        Start Test
+      </button>
+    </p>
+    <!-- <p class="start-button">
+        <button onclick="startTest()">Start Test</button>
+    </p> -->
+
+    <p class="back-button">
+        <button onclick="goBack()">Go Back</button>
+    </p>
+</div>
+{% endblock %}

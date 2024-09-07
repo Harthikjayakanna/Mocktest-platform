@@ -1,0 +1,275 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assessment Results</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      text-align: center;
+      margin: 50px;
+    }
+
+    .congratulations {
+      font-size: 24px;
+      font-weight: bold;
+      color: #28a745;
+      margin-bottom: 20px;
+    }
+
+    .container {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .result-summary {
+      text-align: left;
+    }
+
+    .result-summary p {
+      margin: 5px 0;
+    }
+
+    .marks {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .mark-icon {
+      font-size: 24px;
+      margin-right: 5px;
+    }
+
+    .buttons-container {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .button {
+      padding: 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div class="congratulations">Congratulations! You passed the assessment.</div>
+
+<div class="container">
+  <div class="result-summary">
+    <p>Date: <span id="date">28</span></p>
+    <p>Month: <span id="month">Dec</span></p>
+    <p>Year: <span id="year">2023</span></p>
+    <br>
+  </div>
+
+  <div class="result-summary marks">
+    <ul>
+        <div>
+            <span class="mark-icon">&#10003;</span> Correct Answers: <span id="correctAnswers">75</span>
+          </div>
+          <div>
+            <span class="mark-icon">&#10007;</span> Wrong Answers: <span id="wrongAnswers">10</span>
+          </div>
+          <div>
+            <span class="mark-icon">&#9898;</span> Unanswered: <span id="unanswered">15</span>
+          </div>
+    </ul>
+    
+  </div>
+</div>
+
+<div class="buttons-container">
+  <button class="button" onclick="proceedToNext()">Proceed to Next</button>
+  <button class="button" onclick="attemptAgain()">Attempt Again</button>
+</div>
+
+<script>
+  // Assume you have JavaScript functions to retrieve the results from the backend
+  // For demonstration purposes, I'm using hardcoded values here
+  const date = 28;
+  const month = 'Dec';
+  const year = 2023;
+  const correctAnswers = 75;
+  const wrongAnswers = 10;
+  const unanswered = 15;
+
+  // Display the results
+  document.getElementById('date').textContent = date;
+  document.getElementById('month').textContent = month;
+  document.getElementById('year').textContent = year;
+  document.getElementById('correctAnswers').textContent = correctAnswers;
+  document.getElementById('wrongAnswers').textContent = wrongAnswers;
+  document.getElementById('unanswered').textContent = unanswered;
+
+  function proceedToNext() {
+    // Implement logic to proceed to the next assessment
+    alert('Proceeding to the next assessment');
+  }
+
+  function attemptAgain() {
+    // Implement logic to reset and attempt the assessment again
+    alert('Attempting the assessment again');
+  }
+</script>
+
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assessment Results</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      text-align: center;
+      margin: 50px;
+    }
+
+    .congratulations {
+      font-size: 24px;
+      font-weight: bold;
+      color: #28a745;
+      margin-bottom: 20px;
+    }
+
+    .container {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .result-summary {
+      text-align: left;
+    }
+
+    .result-summary p {
+      margin: 5px 0;
+    }
+
+    .marks {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .mark-icon {
+      font-size: 24px;
+      margin-right: 5px;
+    }
+
+    .buttons-container {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .button {
+      padding: 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div class="congratulations">Congratulations! You passed the assessment.</div>
+
+<div class="container">
+  <div class="result-summary">
+    <p>Date: <span id="date">28</span></p>
+    <p>Month: <span id="month">Dec</span></p>
+    <p>Year: <span id="year">2023</span></p>
+    <br>
+  </div>
+
+  <div class="result-summary marks">
+
+    <ul>
+      <div>
+        <span class="mark-icon">&#10003;</span> Correct Answers:<span id="correctAnswers"></span>
+      </div>
+      <div>
+        <span class="mark-icon">&#10007;</span> Wrong Answers:<span id="wrongAnswers"></span>
+      </div>
+      <div>
+        <span class="mark-icon">&#9898;</span> Unanswered: <span id="unanswered"></span>
+      </div>
+    </ul>
+  </div>
+</div>
+
+<canvas id="marksChart" width="400" height="200"></canvas>
+
+<div class="buttons-container">
+  <button class="button" onclick="proceedToNext()">Proceed to Next</button>
+  <button class="button" onclick="attemptAgain()">Attempt Again</button>
+</div>
+
+<script>
+  // Assume you have JavaScript functions to retrieve the results from the backend
+  // For demonstration purposes, I'm using hardcoded values here
+  const date = 28;
+  const month = 'Dec';
+  const year = 2023;
+  const correctAnswers = {{ answered_count }};
+  const wrongAnswers = {{ wrong_answers_count }};
+  const unanswered = {{ unanswered_count }};
+  // Display the results
+  document.getElementById('date').textContent = date;
+  document.getElementById('month').textContent = month;
+  document.getElementById('year').textContent = year;
+  document.getElementById('correctAnswers').textContent = correctAnswers;
+  document.getElementById('wrongAnswers').textContent = wrongAnswers;
+  document.getElementById('unanswered').textContent = unanswered;
+
+  // Create a bar chart
+  const ctx = document.getElementById('marksChart').getContext('2d');
+  const marksChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Total Marks'],
+      datasets: [{
+        label: 'Total Marks Scored',
+        data: [totalMarks],
+        backgroundColor: '#007bff',
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 100,
+        },
+      },
+    },
+  });
+
+  function proceedToNext() {
+    // Implement logic to proceed to the next assessment
+    alert('Proceeding to the next assessment');
+  }
+
+  function attemptAgain() {
+    // Implement logic to reset and attempt the assessment again
+    alert('Attempting the assessment again');
+  }
+</script>
+
+</body>
+</html>

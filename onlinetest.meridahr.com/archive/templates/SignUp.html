@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% load static %}
+    <title>SignUp page</title>
+    <style>
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      * {
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+      }
+      /* body{
+            background: rgb(218,52,246);
+background: -moz-linear-gradient(167deg, rgba(218,52,246,1) 0%, rgba(32,33,126,1) 100%);
+background: -webkit-linear-gradient(167deg, rgba(218,52,246,1) 0%, rgba(32,33,126,1) 100%);
+background: linear-gradient(167deg, rgba(218,52,246,1) 0%, rgba(32,33,126,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#da34f6",endColorstr="#20217e",GradientType=1); } */
+      .font1 {
+        font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+      }
+      .logo {
+        width: 300px;
+      }
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <!-- Logo bar -->
+    <div class="d-flex">
+      <img
+        class="logo mx-auto"
+        src="{% static 'images/skill learning logo-04.jpg' %}"
+        alt=""
+      />
+    </div>
+    <!-- Form to LogIn -->
+
+    <div class="h-[80vh] flex">
+      <div class="mx-auto my-auto col-md-5 py-5 shadow-lg border-2 rounded-2xl">
+        <form action="{% url 'signup' %}"   method="POST" class="d-flex w-75 p-3 mx-auto flex-column gap-3">
+          {% csrf_token %}
+          <p class="text-center font1 text-2xl fw-semibold">
+            User Registeration
+          </p>
+          <input
+            type="text"
+            class="p-2 text-xl focus:outline-orange-600 px-3 border"
+            placeholder="Name :" name="name"
+          />
+          <input
+            type="email"
+            class="p-2 text-xl focus:outline-orange-600 px-3 border"
+            placeholder="Email : " name="email"
+          />
+          <input
+            type="number"
+            class="p-2 text-xl focus:outline-orange-600 px-3 border"
+            placeholder="Phone :" name="phone"
+          />
+          <input
+            type="password"
+            class="p-2 text-xl focus:outline-orange-600 px-3 border"
+            placeholder="Password :" name="password"
+          />
+          <!-- <input
+            type="text"
+            class="p-2 text-xl focus:outline-orange-600 px-3 border"
+            placeholder="OTP :"
+          /> -->
+          <a href="{% url 'login' %}" class="text-center w-fit mx-auto  text-blue-500 hover:underline ">LogIn to the existing account  </a>
+          <button class="p-2 px-3 bg-blue-600 text-slate-50 rounded-xl">
+            Sign Up
+          </button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

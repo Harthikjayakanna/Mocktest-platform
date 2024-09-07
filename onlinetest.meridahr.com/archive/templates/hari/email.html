@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+
+    
+		 input:hover {
+			background-color:darkgrey;
+			color:black;
+			
+		  } 
+	</style>
+
+</head>
+<body>
+	<div class="container" style="box-sizing: border-box; width:fit-content;height:fit-content;background-color:cadetblue;
+     margin:auto;margin-top:5em;padding:1em 2em 2em ;border-radius: 15px 50px 30px 5px;">
+	<h3 id="form-title">Verify Account</h3>
+	<form method="post" action="" >
+		{% csrf_token %}
+	<table >
+		<tr>
+			<td>
+                <h5>Emali</h5>
+			</td>
+			<td>
+				<input type="email" name="email" required>
+			</td>
+		</tr>
+    </table >
+	<div style="padding-left:6em; padding-top:2em">
+		<input type="submit" value="Verify">
+	</div>
+	</form>
+</div>
+</body>
+</html>

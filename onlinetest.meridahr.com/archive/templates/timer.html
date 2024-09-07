@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block timerhead %}
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: right;
+      margin: 20px;
+    }
+    #timer {
+      font-size: 24px;
+      color: black;
+    }
+  </style> 
+  {% endblock %}
+
+  {% block timer %}
+<body>
+  <div id="timer">Timer: <span id="time">00:00</span></div>
+  <br>
+
+  <script>
+    var timeLimit = 3600; 
+    function updateTimer(timeRemaining) {
+      var minutes = Math.floor(timeRemaining / 60);
+      var seconds = timeRemaining % 60;
+      document.getElementById('time').innerText = 
+        (minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+    }
+
+    // Function to handle the timer countdown
+    function startTimer() {
+      var timeRemaining = timeLimit;
+      updateTimer(timeRemaining);
+
+      var timerInterval = setInterval(function() {
+        timeRemaining--;
+
+        if (timeRemaining >= 0) {
+          updateTimer(timeRemaining);
+        } else {
+          clearInterval(timerInterval);
+          alert('Time is up! Submit your answers.');
+        }
+      }, 1000); 
+    }
+
+    // Start the timer when the page loads
+    window.onload = startTimer;
+  </script>
+
+</body>
+</html>
+{% endblock %}

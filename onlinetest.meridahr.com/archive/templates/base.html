@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/ae360af17e.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/python/python.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Sidebar With Bootstrap</title>
+    
+<!-- Include CodeMirror stylesheet -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.css">
+<!-- Include CodeMirror theme (you can choose a theme from the CodeMirror website) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/theme/dracula.min.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+        *,
+        ::after,
+        ::before {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            /* background-image: url("./images.png"); */
+            background-repeat: no-repeat;
+            background-position: center bottom;
+            background-size: cover;
+        }
+
+        h3 {
+            font-size: 1.2375rem;
+            color: black;
+        }
+
+        a {
+            cursor: pointer;
+            text-decoration: none;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .wrapper {
+            align-items: stretch;
+            display: flex;
+            width: 100%;
+        }
+
+        #sidebar {
+            max-width: 264px;
+            min-width: 264px;
+            transition: all 0.35s ease-in-out;
+            box-shadow: 0 0 35px 0 rgba(49, 57, 66, 0.5);
+            position: fixed;
+            height: 100vh;
+        }
+
+        /* Sidebar collapse */
+
+        #sidebar.collapsed {
+            margin-left: -264px;
+        }
+
+        .main {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            width: 100%;
+            overflow: hidden;
+            transition: all 0.35s ease-in-out;
+            margin-left: 264px;
+        }
+
+        .main.collapsed {
+            margin-left: -264px;
+        }
+
+        .sidebar-logo {
+            padding: 1.15rem 1.5rem;
+        }
+
+        .sidebar-logo a {
+            color: black;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .sidebar-nav {
+            padding: 0;
+        }
+
+        .sidebar-header {
+            color: black;
+            font-size: .75rem;
+            padding: 1.5rem 1.5rem .375rem;
+        }
+
+        a.sidebar-link {
+            padding: .625rem 1.625rem;
+            color: black;
+            position: relative;
+            display: block;
+            font-size: 1rem;
+        }
+
+        .sidebar-link[data-bs-toggle="collapse"]::after {
+            border: solid;
+            border-width: 0 .075rem .075rem 0;
+            content: "";
+            display: inline-block;
+            padding: 2px;
+            position: absolute;
+            right: 1.5rem;
+            top: 1.4rem;
+            transform: rotate(-135deg);
+            transition: all .2s ease-out;
+        }
+
+        .sidebar-link.collapsed::after {
+            content: "";
+            display: block;
+            transform: rotate(45deg);
+            transition: all .2s ease-out;
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 999;
+        }
+
+        .content {
+            flex: 1;
+            max-width: 100vw;
+            width: 100vw;
+        }
+
+        #timer {
+            color: blue;
+            text-align: right;
+            position: fixed;
+            top: 0;
+            /* Adjust this value to set the vertical position */
+            right: 0;
+            /* Adjust this value to set the horizontal position */
+            background-color: white;
+            /* Optional: add a background color if needed */
+            padding: 10px;
+            /* Optional: add padding for better visibility */
+        }
+
+        .Submit-btn {
+            color: green;
+            margin-top: 2rem;
+            margin-left: 50%;
+            margin-right: 50%;
+            width: fit-content;
+        }
+
+        /* Responsive */
+
+        @media (min-width:768px) {
+            .content {
+                width: auto;
+            }
+        }
+
+        label.box {
+            display: flex;
+            margin-top: 10px;
+            padding: 10px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: 1px solid #ddd
+        }
+
+        #one:checked~label.first,
+        #two:checked~label.second,
+        #three:checked~label.third,
+        #four:checked~label.forth,
+        #five:checked~label.fifth,
+        #six:checked~label.sixth,
+        #seven:checked~label.seveth,
+        #eight:checked~label.eighth {
+            border-color: #8e498e
+        }
+
+        #one:checked~label.first .circle,
+        #two:checked~label.second .circle,
+        #three:checked~label.third .circle,
+        #four:checked~label.forth .circle,
+        #five:checked~label.fifth .circle,
+        #six:checked~label.sixth .circle,
+        #seven:checked~label.seveth .circle,
+        #eight:checked~label.eighth .circle {
+            border: 6px solid #8e498e;
+            background-color: #fff;
+        }
+
+        label.box:hover {
+            background: #d5bbf7;
+        }
+
+        label.box .course {
+            display: flex;
+            align-items: center;
+            width: 100%
+        }
+
+        label.box .circle {
+            height: 22px;
+            width: 22px;
+            border-radius: 50%;
+            margin-right: 15px;
+            border: 2px solid #ddd;
+            display: inline-block
+        }
+
+
+        .mcq_btn {
+            border-radius: 25px;
+            margin-top: 20px
+        }
+
+        
+        
+    </style>
+    
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <aside id="sidebar">
+            <div class="h-100">
+                <div class="sidebar-logo">
+                    <a href="{% url 'dash' %}">Mocktest Platform</a>
+                </div>
+                <!-- Sidebar Navigation -->
+                <ul class="sidebar-nav">
+                    <li class="sidebar-header">
+                        Tools & Components
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="{% url 'prof' %}" class="sidebar-link">
+                            <i class="fa-solid fa-list pe-2"></i>
+                            Profile
+                        </a>
+                    </li>
+                    <select class="custom-select" onchange="redirectToOption()">
+                        <option selected disabled>Take a Test</option>
+                        <option value="option1">Choices Test</option>
+                        <option value="option2">Coding Test</option>
+                        
+                    </select>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#auth"
+                            aria-expanded="false" aria-controls="auth">
+                            <i class="fa-regular fa-user pe-2"></i>
+                            Auth
+                        </a>
+                        <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="#" class="sidebar-link">Login</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="#" class="sidebar-link">Register</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-header">
+                        Multi Level Nav
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse" data-bs-target="#multi"
+                            aria-expanded="false" aria-controls="multi">
+                            <i class="fa-solid fa-share-nodes pe-2"></i>
+                            Multi Level
+                        </a>
+                        <ul id="multi" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse"
+                                    data-bs-target="#multi-two" aria-expanded="false" aria-controls="multi-two">
+                                    Two Links
+                                </a>
+                                <ul id="multi-two" class="sidebar-dropdown list-unstyled collapse">
+                                    <li class="sidebar-item">
+                                        <a href="#" class="sidebar-link">Link 1</a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="#" class="sidebar-link">Link 2</a>
+                                    </li>
+                                </ul>
+
+                            </li>
+
+
+                        </ul>
+
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a href="{% url 'student_registration' %}" class="sidebar-link">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+        <!-- Main Component -->
+        <div class="main">
+            <nav class="navbar navbar-expand px-3 border-bottom">
+                <!-- Button for sidebar toggle -->
+                <button class="btn" type="button" data-bs-theme="--color-white">
+                    <span class="navbar-toggler-icon"></span>
+                </button> {% block dashhead %} {% endblock %}
+                {% block profilehead %} {% endblock %}
+                {% block taketesthead %} {% endblock %}
+                {% block instructionshead %} {% endblock %}
+                {% block codinghead %} {% endblock %}
+                <center>{% block subject_level %}{% endblock %}</center>
+                {% block que_heading %} {% endblock %}
+            </nav>
+            <main class="content px-3 py-2">
+                <div class="container-fluid">
+                    <div class="mb-3">
+                        {% block dashboard %} <!-- jingatemplate -->
+
+                        {% endblock %}
+
+                        {% block profile %}
+
+                        {% endblock %}
+
+                        {% block taketest %}
+
+                        {% endblock %}
+
+                        {% block instructions %}
+
+                        {% endblock %}
+
+                        {% block mcq %}
+
+                        {% endblock %}
+
+                        {% block disclaimers%}
+
+                        {% endblock %}
+
+                        {% block timer %}
+
+                        {% endblock %}
+
+                        {% block coding %}
+
+                        {% endblock %}
+
+                        {% block c_q %}
+
+                        {% endblock %}
+
+                        {% block questions %}
+
+                        {% endblock %}
+
+                        {% block coding_test %}
+
+                        {% endblock %}
+
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        function redirectToOption() {
+            var selectElement = document.querySelector('.custom-select');
+            var selectedValue = selectElement.options[selectElement.selectedIndex].value;
+    
+            // Redirect to the selected option's URL or perform any other action
+            if (selectedValue === 'option1') {
+                window.location.href = 'taketest';
+            } else if (selectedValue === 'option2') {
+                window.location.href = 'code';
+            } 
+        }
+    </script>
+    
+    <script>
+        const toggler = document.querySelector(".btn");
+        toggler.addEventListener("click", function () {
+            document.querySelector("#sidebar").classList.toggle("collapsed");
+
+            function logout() {
+                alert('Logout functionality goes here');
+            }
+        });
+        function goBack() {
+            window.history.back();
+        }
+
+        function handleContinue() {
+            alert('Continue button clicked!');
+        }
+
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
